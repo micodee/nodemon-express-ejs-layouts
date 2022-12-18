@@ -1,13 +1,19 @@
 const express = require("express");
+// express-ejs-layouts
+const expressLayouts = require("express-ejs-layouts");
 const app = express();
 
 // gunakan ejs
 app.set("view engine", "ejs");
 
+// express-ejs-layouts
+app.use(expressLayouts);
+
 app.get("/", (req, res) => {
   res.render("index", {
-    nama : 'micode',
-    title : 'Halaman Home',
+    nama: "micode",
+    title: "Halaman Home",
+    layout: 'layouts/main-layouts'
   });
 });
 app.get("/tentang", (req, res) => {
@@ -25,16 +31,24 @@ app.get("/tentang", (req, res) => {
     //   makan: 'siomay',
     //   harga: 'Rp.10.000',
     // },
-  ]
+  ];
   res.render("abouts", {
-    namaMakanan : makanan,
+    namaMakanan: makanan,
+    title: "Halaman Makanan",
+    layout: "layouts/main-layouts",
   });
 });
 app.get("/about", (req, res) => {
-  res.render("about", {title : 'Halaman About'});
+  res.render("about", {
+    title: "Halaman About",
+    layout: "layouts/main-layouts",
+  });
 });
 app.get("/kontak", (req, res) => {
-  res.render("contact", {title : 'Halaman Contact'});
+  res.render("contact", {
+    title: "Halaman Contact",
+    layout: "layouts/main-layouts",
+  });
 });
 
 app.get("/product/:id", (req, res) => {

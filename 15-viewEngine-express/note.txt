@@ -1,4 +1,4 @@
-EJS (Jmbedded Javascript Template) templating engine
+EJS (Embedded Javascript Template) templating engine
 cara mengelola tampilan
 
 fitur npm ejs
@@ -16,3 +16,6 @@ ejs wajib
 install plugin/extension
 * ejs language
 * ejs snippets
+
+lebih simple
+https://www.npmjs.com/package/express-ejs-layouts
