@@ -1,0 +1,9 @@
+ <% if (namaMakanan.length<1) { %>
+     <p>Data makanan masih kosong</p>
+    <% } %>
+    <% namaMakanan.forEach(food => { %>
+    <ul>
+      <li>Makanan : <%= food.makan %></li>
+      <li>Harga : <%= food.harga %></li>
+    </ul>
+    <% }) %>

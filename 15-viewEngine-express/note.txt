@@ -19,3 +19,4 @@ install plugin/extension
 
 lebih simple
 https://www.npmjs.com/package/express-ejs-layouts
+* npm i express-ejs-layouts

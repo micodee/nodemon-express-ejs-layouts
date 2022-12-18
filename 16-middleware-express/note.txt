@@ -1,0 +1,12 @@
+https://expressjs.com/en/guide/using-middleware.html#middleware.application
+guide 
+// Application-level middleware
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
+
+built-in middleware
+https://expressjs.com/en/guide/using-middleware.html#middleware.built-in
+
+app.use(express.static('public', options))
