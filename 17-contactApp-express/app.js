@@ -1,5 +1,9 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
+const { loadContact, findContact } = require("./routes/contacts");
+
+
+
 const app = express();
 
 // gunakan ejs
@@ -48,11 +52,29 @@ app.get("/about", (req, res) => {
   });
 });
 app.get("/kontak", (req, res) => {
+  const contacts = loadContact()
+  // console.log(contacts)
+
+
   res.render("contact", {
     title: "Halaman Contact",
     layout: "layouts/main-layouts",
+    kontak : contacts,
+    
   });
 });
+app.get("/kontak/:nama", (req, res) => {
+  const kontak = findContact(req.params.nama)
+//   // console.log(contacts)
+
+
+  res.render("detail", {
+    title: "Halaman Detail Contact",
+    layout: "layouts/main-layouts",
+    kontak,
+    
+  });
+  });
 
 app.use("/", (req, res) => {
   res.status(404);

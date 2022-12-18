@@ -11,15 +11,25 @@
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Marcelino</td>
-                    <td>08243949323</td>
-                    <td>
-                        <a href="" class="btn btn-success badge rounded-pill">Detail</a>
+                <% if (kontak.length === 0) { %>
+                    <td colspan="4">
+                        <div class="alert alert-danger fw-bold" role="alert">
+                            Data contact masih kosong
+                        </div>
                     </td>
-                  </tr>
+                <% } %>
+                <tbody>
+                    <% let no = 1 %> 
+                    <% kontak.forEach(kon => { %>
+                        <tr>
+                          <th scope="row"><%= no++  %></th>
+                          <td><%= kon.nama  %></td>
+                          <td><%= kon.noHp  %></td>
+                          <td>
+                              <a href="/kontak/<%= kon.nama %> " class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i>Detail</a>
+                          </td>
+                        </tr>
+                    <% }) %>
                 </tbody>
               </table>
         </div>
