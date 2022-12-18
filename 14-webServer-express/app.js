@@ -18,7 +18,6 @@ app.get("/contact", (req, res) => {
   res.send(`<h1>Halaman Contact</h1>`);
 });
 
-
 // app.get('/product/:id', (req, res) => {
 //     res.send('Product ID : ' + req.params.id)
 // })
