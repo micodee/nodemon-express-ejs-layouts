@@ -1,0 +1,4 @@
+cara menjalankannya diterminal "nodemon app"
+dikasih script start menjadi "npm start"
+
+app.use dengan menggunakan use bisa memanggil middleware
