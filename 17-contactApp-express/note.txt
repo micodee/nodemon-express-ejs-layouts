@@ -1,0 +1,2 @@
+membuat folder data dan file json
+membuat folder routes file contact js
