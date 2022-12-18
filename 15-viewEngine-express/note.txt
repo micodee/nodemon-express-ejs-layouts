@@ -1,0 +1,18 @@
+EJS (Jmbedded Javascript Template) templating engine
+cara mengelola tampilan
+
+fitur npm ejs
+https://www.npmjs.com/package/ejs
+ejs resmi
+https://ejs.co/
+
+* npm init
+* npm i express ejs nodemon
+
+ejs wajib
+* extension file ".ejs"
+* simpan didalam folder "views"
+
+install plugin/extension
+* ejs language
+* ejs snippets

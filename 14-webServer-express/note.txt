@@ -1,3 +1,4 @@
+npm init
 npm i nodemon express
 
 cara menjalankannya diterminal "nodemon app"
