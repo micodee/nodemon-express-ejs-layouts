@@ -1,2 +1,6 @@
 membuat folder data dan file json
 membuat folder routes file contact js
+
+menambahkan halaman detail.ejs
+membuat if jika data user tidak ada
+membuat if jika data kontak kosong
