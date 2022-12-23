@@ -1,0 +1,14 @@
+contacts.js 
+JSON.parse(namaconst) dari string menjadi object
+JSON.stringify(namaconst) dari object ke string
+
+install express-validator
+untuk memvalidasi data tambah kontak
+install express-session
+install cookie-parser
+install connect-flash
+
+10:50 data process
+19:05 addContact
+21:54 validasi
+41:40 flash message

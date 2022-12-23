@@ -1,2 +1,6 @@
 express = webserver
 ejs = view engine
+
+contacts.js 
+JSON.parse(namaconst) dari string menjadi object
+JSON.stringify(namaconst) dari object ke string

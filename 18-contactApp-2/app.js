@@ -1,6 +1,10 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const { loadContact, findContact } = require("./routes/contacts");
+const { loadContact, findContact, addKontak, cekDuplikat } = require("./routes/contacts");
+const { body, validationResult, check } = require('express-validator');
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const connectFlash = require('connect-flash')
 
 
 
@@ -14,6 +18,23 @@ app.use(express.static('public'))
 
 // express-ejs-layouts
 app.use(expressLayouts);
+
+// pharsing untuk tambah data
+app.use(express.urlencoded({extended:true}))
+
+
+
+// konfigurasi flash
+app.use(cookieParser('secret'))
+app.use(session({
+  cookie: {maxAge: 6000},
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+// kasih middleware utk flash
+app.use(connectFlash())
+
 
 
 app.get("/", (req, res) => {
@@ -60,9 +81,46 @@ app.get("/kontak", (req, res) => {
     title: "Halaman Contact",
     layout: "layouts/main-layouts",
     kontak : contacts,
-    
+    msg: req.flash('message'),
   });
 });
+
+// halaman from tambah data kontak
+app.get('/kontak/add', (req, res) => {
+  res.render('add-kontak', {
+    title: 'form tambah data kontak',
+    layout: 'layouts/main-layouts',
+  })
+})
+
+// proses kirim data kontak
+app.post('/kontak', 
+body('nama').custom((value) => {
+  const duplikat = cekDuplikat(value)
+  if(duplikat) {
+    throw new Error('Nama kontak sudah ada')
+  }
+  return true
+}),
+check('email', 'email tidak valid').isEmail(), 
+check('nohp', 'nomor hp tidak valid').isMobilePhone('id-ID'), (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // return res.status(400).json({ errors: errors.array() });
+    res.render('add-kontak.ejs', {
+      title: "form tambah data kontak",
+      layout:'layouts/main-layouts',
+      errors: errors.array()
+    })
+  } else {
+    addKontak(req.body)
+    // kirimkan flash message
+    req.flash('message', 'Data Kontak Berhasil Ditambahkan')
+    res.redirect('/kontak')
+  }
+})
+
+// halaman detail kontak
 app.get("/kontak/:nama", (req, res) => {
   const kontak = findContact(req.params.nama)
 //   // console.log(contacts)
