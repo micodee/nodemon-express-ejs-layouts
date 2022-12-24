@@ -1,5 +1,10 @@
 express = webserver
+express-ejs-layouts = layout untuk pagenya
+express-validator = untuk memvalidasi inputan
 ejs = view engine
+connect-flash,
+cookie-parser,
+express-session = untuk pemberitahuan info input berhasil ditambahkan setelahnya 
 
 contacts.js 
 JSON.parse(namaconst) dari string menjadi object
