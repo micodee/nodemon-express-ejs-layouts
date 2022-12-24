@@ -43,4 +43,20 @@ const cekDuplikat = (nama) => {
   return contacts.find((contact) => contact.nama === nama)
 }
 
-module.exports = { loadContact, findContact, addKontak, cekDuplikat };
+// delete kontak
+const deleteKontak = (nama) => {
+  const contacts = loadContact() // ambil isi dari kontak kita
+  const filteredContacts = contacts.filter((contact) => contact.nama !== nama) // mencari sampai akhir => setiap kontak, asalkan namanya tidak sama dgn nama
+  saveKontaks(filteredContacts) // kita timpa apapun yang ada dalam kontak jsonnya dengan filteredContacts
+}
+
+// ubah kontak
+const updateKontaks = (kontakBaru) => {
+  const kontaks = loadContact() // ambil semua data kontak
+  const filteredContacts = kontaks.filter((kontak) => kontak.nama !== kontakBaru.oldNama) // hilangkan kontak lama yang namanya = oldNama
+  delete kontakBaru.oldNama // hapus object json oldNama
+  filteredContacts.push(kontakBaru) // kita push masukan
+  saveKontaks(filteredContacts) // kita timpa apapun yg ada didalam jsonnya 
+}
+
+module.exports = { loadContact, findContact, addKontak, cekDuplikat, deleteKontak, updateKontaks };

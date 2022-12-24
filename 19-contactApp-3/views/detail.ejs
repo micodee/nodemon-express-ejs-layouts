@@ -13,6 +13,7 @@
           <h5 class="card-title"><%= kontak.nama %> </h5>
           <h6 class="card-subtitle mb-2 text-muted"><%= kontak.nohp %> </h6>
           <p class="card-text"><%= kontak.email %> </p>
+          <a href="/kontak/edit/<%= kontak.nama %>" class="btn btn-primary badge">Ubah</a>
           <a href="/kontak/delete/<%= kontak.nama %>" class="btn btn-danger badge" onclick="return confirm('yakin?')">Hapus</a>
           <a href="/kontak" class="card-link d-block mt-3"
             >&laquo; Kembali ke daftar kontak</a

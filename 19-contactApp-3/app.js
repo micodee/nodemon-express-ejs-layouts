@@ -1,6 +1,6 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const { loadContact, findContact, addKontak, cekDuplikat } = require("./routes/contacts");
+const { loadContact, findContact, addKontak, cekDuplikat, deleteKontak, updateKontaks } = require("./routes/contacts");
 const { body, validationResult, check } = require('express-validator');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -122,6 +122,60 @@ check('nohp', 'nomor hp tidak valid').isMobilePhone('id-ID'), (req, res) => {
 
 
 // proses delete kontak
+app.get('/kontak/delete/:nama', (req, res) => {
+  // ambil dulu kontaknya
+  const kontak = findContact(req.params.nama)
+
+  // jika kontak tidak ada
+  if(!kontak) {
+    res.status(404)
+    res.send('<h1>Halaman 404 error</h1>')
+  } else { // jika berhasil
+    deleteKontak(req.params.nama)
+    // kirimkan flash message
+    req.flash('message', 'Data Kontak Berhasil Dihapus')
+    res.redirect('/kontak')
+  }
+})
+
+// form view ubah data kontak
+app.get('/kontak/edit/:nama', (req, res) => {
+  const kontak = findContact(req.params.nama)
+
+  res.render('edit-kontak', {
+    title: 'form ubah data kontak',
+    layout: 'layouts/main-layouts',
+    kontak,
+  })
+})
+
+// proses ubah data kontak
+app.post('/kontak/update', 
+body('nama').custom((value, { req }) => {
+  const duplikat = cekDuplikat(value)
+  if(value !== req.body.oldNama && duplikat) {
+    throw new Error('Nama kontak sudah ada')
+  }
+  return true
+}),
+check('email', 'email tidak valid').isEmail(), 
+check('nohp', 'nomor hp tidak valid').isMobilePhone('id-ID'), (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // return res.status(400).json({ errors: errors.array() });
+    res.render('edit-kontak.ejs', {
+      title: "form ubah data kontak",
+      layout:'layouts/main-layouts',
+      errors: errors.array(),
+      kontak: req.body,
+    })
+  } else {
+    updateKontaks(req.body)
+    // kirimkan flash message
+    req.flash('message', 'Data Kontak Berhasil Diubah')
+    res.redirect('/kontak')
+  }
+})
 
 
 // halaman detail kontak
